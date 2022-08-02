@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = (env, argv) => {
   const backend_url = '/api'
-  // If running containerized, use custom url to proxy backend calls to (Docker) host instead of localhost
+  // Proxies backend calls in DEV. If independent container, use (Docker) host. Otherwise use direct backend host.
   const proxy_url = process.env.PROXY_URL || 'http://localhost:3003'
 
   return {
@@ -24,6 +24,10 @@ const config = (env, argv) => {
       },
       hot: true,
       historyApiFallback: true,
+      allowedHosts: [
+        'bloglist-frontend',
+        'localhost',
+      ],
     },
     devtool: 'source-map',
     module: {
