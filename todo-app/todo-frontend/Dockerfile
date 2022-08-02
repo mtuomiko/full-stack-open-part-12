@@ -4,7 +4,7 @@ WORKDIR /stage
 
 COPY . .
 
-ENV REACT_APP_BACKEND_URL=http://localhost:3000 \
+ENV REACT_APP_BACKEND_URL=/api \
     CI=true
 
 RUN npm ci --only=prod && npm test && npm run build
