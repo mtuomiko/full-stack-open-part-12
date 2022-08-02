@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const configs = require('../util/config')
-const redis = require('../redis')
+const configs = require('../util/config');
 
-let visits = 0
+let visits = 0;
 
 /* GET index data. */
 router.get('/', async (req, res) => {
