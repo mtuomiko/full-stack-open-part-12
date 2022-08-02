@@ -3,38 +3,37 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = (env, argv) => {
-  // Production url not yet implemented, both urls here as a placeholder
-  const backend_url = argv.mode === 'production'
-    ? 'http://localhost:3003/api'
-    : 'http://localhost:3003/api'
+  const backend_url = '/api'
+  // If running containerized, use custom url to proxy backend calls to (Docker) host instead of localhost
+  const proxy_url = process.env.PROXY_URL || 'http://localhost:3003'
 
   return {
-    entry: ['@babel/polyfill', './src/index.js'],
+    target: argv.mode === 'development' ? 'web' : 'browserslist',
+    entry: ['./src/index.js'],
     output: {
       path: path.resolve(__dirname, 'build'),
-      filename: 'main.js'
+      filename: 'main.js',
+      publicPath: '/',
     },
     devServer: {
-      contentBase: path.resolve(__dirname, 'build'),
+      static: path.resolve(__dirname, 'build'),
       compress: true,
-      port: 3000,
+      port: 3004,
       proxy: {
-        '/api': 'http://localhost:3003',
+        '/api': proxy_url
       },
+      hot: true,
+      historyApiFallback: true,
     },
     devtool: 'source-map',
     module: {
       rules: [
         {
           test: /\.js$/,
-          use: [
-            {
-              loader: 'babel-loader',
-              options: {
-                presets: ['@babel/preset-env', '@babel/preset-react']
-              },
-            },
-          ],
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+          },
         },
       ],
     },

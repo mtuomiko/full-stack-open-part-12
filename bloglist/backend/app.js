@@ -33,9 +33,6 @@ app.use(bodyParser.json())
 morgan.token('request-body', (req) => JSON.stringify(req.body))
 app.use(morgan(':date :method :url :status :res[content-length] - :response-time ms :request-body'))
 
-// Using morgan for logging
-//app.use(middleware.requestLogger)
-
 app.use(middleware.tokenExtractor)
 
 app.use('/api/users', usersRouter)
