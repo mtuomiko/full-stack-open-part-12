@@ -1,13 +1,16 @@
+const backendUrl = Cypress.env('BACKEND_URL')
+const frontendUrl = Cypress.env('FRONTEND_URL')
+
 describe('Blog app', function () {
   beforeEach(function () {
-    cy.request('POST', 'http://localhost:3003/api/testing/reset')
+    cy.request('POST', `${backendUrl}/api/testing/reset`)
     const user = {
       username: 'tiinatest',
       name: 'Tiina Testeri',
       password: 'pass',
     }
-    cy.request('POST', 'http://localhost:3003/api/users', user)
-    cy.visit('http://localhost:3000')
+    cy.request('POST', `${backendUrl}/api/users`, user)
+    cy.visit(frontendUrl)
   })
 
   it('Front page can be opened', function () {

@@ -2,6 +2,6 @@
 
 Based on [part 7 bloglist application](https://github.com/mtuomiko/full-stack-open/tree/master/part7) (backend and frontend).
 
-## Secrets
+## Environment variables and secrets
 
-Backend secrets (see [backend README.md](backend/README.md)) are handled perhaps a bit lazily by requiring all of them in a single `.env` file at `backend/.env`. It should be fine for this exercise since this `docker-compose` setup is not going to be actually running anywhere.
+Backend env vars `MONGODB_URI` and `SECRET` need to be defined in `backend/.env` file to use the docker-compose setup. See also [backend README.md](backend/README.md). It should be fine for this exercise since this `docker-compose` setup is not going to be actually running anywhere.

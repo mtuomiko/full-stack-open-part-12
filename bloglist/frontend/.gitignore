@@ -24,7 +24,9 @@ yarn-error.log*
 
 .eslintrc.js
 
-# cypress folders except integration
+# cypress folders except integration and plugins
 /cypress/**
 !/cypress/integration/
 !/cypress/integration/**
+!/cypress/plugins/
+!/cypress/plugins/**
